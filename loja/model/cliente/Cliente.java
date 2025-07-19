@@ -16,9 +16,6 @@ public class Cliente{
     public String getIdentificador() {
         return identificador;
     }
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
     public String getNome() {
         return nome;
     }
