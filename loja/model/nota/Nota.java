@@ -1,23 +1,20 @@
 package loja.model.nota;
 
+import java.util.Random;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import loja.model.cliente;
+import loja.model.cliente.Cliente;
 
 public class Nota{
     Cliente cliente;
     ItemNota itens;
-    String idNota;
+    long idNota;
     LocalDateTime dataEmissao;
 
     
-    public Nota(Cliente cliente, ItemNota itens, String idNota, LocalDateTime dataEmissao, BigDecimal subtotal,
-            BigDecimal valorTotal) {
+    public Nota(Cliente cliente, ItemNota itens, BigDecimal subtotal, BigDecimal valorTotal) {
         this.cliente = cliente;
         this.itens = itens;
-        this.idNota = idNota;
-        this.dataEmissao = dataEmissao;
-
     }
 
     public Cliente getCliente() {
@@ -36,12 +33,17 @@ public class Nota{
         this.itens = itens;
     }
 
-    public String getIdNota() {
+    public long getIdNota() {
         return idNota;
     }
 
-    public void setIdNota(String idNota) {
-        this.idNota = idNota;
+
+    public void setIdNota(long idNota) {
+        Random random = new Random();
+         int min = 100000;
+        int max = 999999;
+        int numero = (int) (Math.random()* (max - min)) + min;
+        this.idNota = numero; 
     }
 
     public LocalDateTime getDataEmissao() {
@@ -49,7 +51,8 @@ public class Nota{
     }
 
     public void setDataEmissao(LocalDateTime dataEmissao) {
-        this.dataEmissao = dataEmissao;
+        LocalDateTime now = LocalDateTime.now();
+        this.dataEmissao = now;
     }
 
     
