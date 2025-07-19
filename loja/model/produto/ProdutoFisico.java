@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class ProdutoFisico extends Produto{
     private double pesoGramas;
     private int estoque;
-    private BigDecimal frete;
     
     public ProdutoFisico(String codigo, String nome, BigDecimal precoBase, double pesoGramas, int estoque) {
         super(codigo, nome, precoBase);
@@ -29,13 +28,4 @@ public class ProdutoFisico extends Produto{
         this.estoque = estoque;
     }
 
-    public BigDecimal getFrete() {
-        return frete;
-    }
-
-    public void setFrete(BigDecimal frete) {
-        this.frete = frete;
-    }
-
-    
 }
