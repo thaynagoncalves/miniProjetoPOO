@@ -6,13 +6,11 @@ import loja.model.produto.Produto;
 public class ItemNota {
     private Produto produto;
     private int quantidade;
-    private BigDecimal precoUnitario;
 
     
-    public ItemNota(Produto produto, int quantidade, BigDecimal precoUnitario) {
+    public ItemNota(Produto produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
-        this.precoUnitario = precoUnitario;
     }
 
 
@@ -36,17 +34,8 @@ public class ItemNota {
     }
 
 
-    public BigDecimal getPrecoUnitario() {
-        return precoUnitario;
-    }
-
-
-    public void setPrecoUnitario(BigDecimal precoUnitario) {
-        this.precoUnitario = precoUnitario;
-    }
-
     public BigDecimal getTotalItem() {
-        return precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        return produto.getPrecoBase().multiply(BigDecimal.valueOf(quantidade));
     }
     
 }
