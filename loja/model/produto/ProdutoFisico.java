@@ -7,12 +7,10 @@ public class ProdutoFisico extends Produto{
     private int estoque;
     private BigDecimal frete;
     
-    public ProdutoFisico(String codigo, String nome, BigDecimal precoBase, double pesoGramas, int estoque,
-            BigDecimal frete) {
+    public ProdutoFisico(String codigo, String nome, BigDecimal precoBase, double pesoGramas, int estoque) {
         super(codigo, nome, precoBase);
         this.pesoGramas = pesoGramas;
         this.estoque = estoque;
-        this.frete = frete;
     }
 
     public double getPesoGramas() {
