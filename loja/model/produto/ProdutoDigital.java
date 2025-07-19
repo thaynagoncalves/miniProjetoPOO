@@ -3,11 +3,11 @@ package loja.model.produto;
 import java.math.BigDecimal;
 
 public class ProdutoDigital extends Produto{
-    private int tamanhoArquivoEmMB;
+    private double tamanhoArquivoEmMB;
     private String formatoArquivo;
     private String linkDownload;
 
-    public ProdutoDigital(String codigo, String nome, BigDecimal precoBase, int tamanhoArquivoEmMB,
+    public ProdutoDigital(String codigo, String nome, BigDecimal precoBase, double tamanhoArquivoEmMB,
             String formatoArquivo, String linkDownload) {
         super(codigo, nome, precoBase);
         this.tamanhoArquivoEmMB = tamanhoArquivoEmMB;
@@ -15,11 +15,11 @@ public class ProdutoDigital extends Produto{
         this.linkDownload = linkDownload;
     }
 
-    public int getTamanhoArquivoEmMB() {
+    public double getTamanhoArquivoEmMB() {
         return tamanhoArquivoEmMB;
     }
 
-    public void setTamanhoArquivoEmMB(int tamanhoArquivoEmMB) {
+    public void setTamanhoArquivoEmMB(double tamanhoArquivoEmMB) {
         this.tamanhoArquivoEmMB = tamanhoArquivoEmMB;
     }
 
