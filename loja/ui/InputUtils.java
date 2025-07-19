@@ -20,6 +20,18 @@ public class InputUtils {
         return Integer.parseInt(entrada);
     }
 
+    public static double lerDouble(String mensagem) {
+        while (true) {
+            try {
+                System.out.print(mensagem);
+                return Double.parseDouble(scanner.nextLine().replace(",", "."));
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido! Digite um número válido, como 42.0.");
+            }
+        }
+    }
+
+
     public static BigDecimal lerBigDecimal(String mensagem) {
         System.out.print(mensagem);
         String entrada = scanner.nextLine().replace(",", ".");
