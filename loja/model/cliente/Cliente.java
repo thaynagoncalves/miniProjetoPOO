@@ -16,7 +16,6 @@ public class Cliente{
     public String getIdentificador() {
         return identificador;
     }
-
     public String getNome() {
         return nome;
     }
