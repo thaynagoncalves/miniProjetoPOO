@@ -3,12 +3,10 @@ package loja.ui;
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 
 public class InputUtils {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final DateTimeFormatter FORMAT_BR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static String lerTexto(String mensagem) {
         System.out.print(mensagem);
@@ -16,37 +14,30 @@ public class InputUtils {
     }
 
     public static int lerInteiro(String mensagem) {
-        while (true) {
-            try {
-                System.out.print(mensagem);
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Valor inválido! Digite um número inteiro.");
-            }
-        }
+        System.out.print(mensagem);
+        String entrada = scanner.nextLine();
+        // Assume que o usuário digitou corretamente
+        return Integer.parseInt(entrada);
     }
 
     public static BigDecimal lerBigDecimal(String mensagem) {
-        while (true) {
-            try {
-                System.out.print(mensagem);
-                return new BigDecimal(scanner.nextLine().replace(",", "."));
-            } catch (NumberFormatException e) {
-                System.out.println("Valor inválido! Digite um número válido, como 10.50.");
-            }
-        }
+        System.out.print(mensagem);
+        String entrada = scanner.nextLine().replace(",", ".");
+        return new BigDecimal(entrada);
     }
 
     public static LocalDate lerData(String mensagem) {
-        while (true) {
-            try {
-                System.out.print(mensagem + " (dd/MM/yyyy): ");
-                String entrada = scanner.nextLine();
-                return LocalDate.parse(entrada, FORMAT_BR);
-            } catch (DateTimeParseException e) {
-                System.out.println("Data inválida. Use o formato dd/MM/yyyy.");
-            }
-        }
+        System.out.print(mensagem + " (yyyy-MM-dd): ");
+        String entrada = scanner.nextLine();
+        // Espera entrada no formato ISO: "2025-07-19"
+        return LocalDate.parse(entrada); 
+    }
+
+    public static LocalDateTime lerDataHora(String mensagem) {
+        System.out.print(mensagem + " (yyyy-MM-ddTHH:mm): ");
+        String entrada = scanner.nextLine();
+        // Espera entrada no formato ISO: "2025-07-19T14:00"
+        return LocalDateTime.parse(entrada);
     }
 
     public static void pausar() {

@@ -3,20 +3,20 @@ package loja.model.produto;
 import java.math.BigDecimal;
 
 public class ProdutoFisico extends Produto{
-    private double pesoGramas;
+    private int pesoGramas;
     private int estoque;
     
-    public ProdutoFisico(String codigo, String nome, BigDecimal precoBase, double pesoGramas, int estoque) {
+    public ProdutoFisico(String codigo, String nome, BigDecimal precoBase, int pesoGramas, int estoque) {
         super(codigo, nome, precoBase);
         this.pesoGramas = pesoGramas;
         this.estoque = estoque;
     }
 
-    public double getPesoGramas() {
+    public int getPesoGramas() {
         return pesoGramas;
     }
 
-    public void setPesoGramas(double pesoGramas) {
+    public void setPesoGramas(int pesoGramas) {
         this.pesoGramas = pesoGramas;
     }
 
