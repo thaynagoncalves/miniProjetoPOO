@@ -1,6 +1,5 @@
 package loja.model.nota;
 
-import java.util.Random;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import loja.model.cliente.Cliente;
@@ -39,8 +38,7 @@ public class Nota{
 
 
     public void setIdNota(long idNota) {
-        Random random = new Random();
-         int min = 100000;
+        int min = 100000;
         int max = 999999;
         int numero = (int) (Math.random()* (max - min)) + min;
         this.idNota = numero; 
