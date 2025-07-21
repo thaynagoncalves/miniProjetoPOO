@@ -11,7 +11,6 @@ import loja.model.cliente.PessoaFisica;
 import loja.model.cliente.PessoaJuridica;
 
 import loja.model.nota.Nota;
-import loja.model.nota.ItemNota;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -350,8 +349,6 @@ public class ConsoleMenu {
     }
 
     private void criarNota() {
-        System.out.println(">>> Nota de Compra <<<");
-
         //verificar se há clientes
         if (clien == 0) {
             System.out.println("Não há clientes cadastrados.");
@@ -364,25 +361,60 @@ public class ConsoleMenu {
             return;
         }
 
+        Cliente clienteSelecionado;
+        Nota novo;
         //escolher clientes cadastrados
-        for(int i = 0; i <= clien; i++){
+        for(int i = 0; i < clien; i++){
             System.out.println("<<< Clientes Cadastrados >>>");
-            System.out.println(i+1 + clientes[i].getNome());
-            int ncliente = InputUtils.lerInteiro("opção: ");
+            System.out.println(i+1 + "-  " + clientes[i].getNome());
+        }
+            int ncliente = InputUtils.lerInteiro("Selecione o cliente da nota: ");
 
-            if(ncliente < 0 || ncliente >= clien){
-                System.out.println("Cliente inválido.");
+        if(ncliente < 1 || ncliente > clien){
+            System.out.println("Cliente inválido.");
+            return;
+        }
+
+        clienteSelecionado = clientes[ncliente];
+        
+
+        novo = new Nota(clienteSelecionado);
+
+        for(int i = 0; i < prod; i++){
+            System.out.println("<<< Produtos Cadastrados >>>");
+            System.out.println(i+1 + produtos[i].getNome());
+        }
+
+        int novoProdutoNota;
+        do{
+            int produtoNaNota = InputUtils.lerInteiro("Selecione o produto da Compra: ");
+
+            if(produtoNaNota < 1 || produtoNaNota > prod){
+                System.out.println("Produto inválido.");
                 return;
             }
-
-            Cliente clienteSelecionado = clientes[ncliente];
-        }
+            int quantidadeProdutoNaNota = InputUtils.lerInteiro("Selecione a quantidade do produto nessa Compra: ");
+            novo.cadastrarItemNota(produtos[produtoNaNota-1], quantidadeProdutoNaNota);
+            if(produtos[produtoNaNota-1]instanceof ProdutoFisico){
+                ProdutoFisico pd2 = (ProdutoFisico) produtos[produtoNaNota-1];
+                pd2.setEstoque(pd2.getEstoque()-quantidadeProdutoNaNota);
+            }else if(produtos[produtoNaNota-1]instanceof ProdutoPerecivel){
+                ProdutoPerecivel pd2 = (ProdutoPerecivel) produtos[produtoNaNota-1];
+                pd2.setEstoque(pd2.getEstoque()-quantidadeProdutoNaNota);
+            }
+            System.out.println("Deseja cadastrar outro produto?");
+            novoProdutoNota = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
+        }while(novoProdutoNota == 1);
+        System.out.println(">>> Nota de Compra <<<");
+        novo.imprimirNota();
+        notas[numNotas] = novo;
+        numNotas++;
     }
 
     private void listarNotas() {
         System.out.println(">>> Notas Emitidas <<<");
         for (int i = 0; i < numNotas; i++) {
-        System.out.println(notas[i]);
+        notas[i].imprimirNota();
         System.out.println("----------------------------------------------------");
         }
     }
