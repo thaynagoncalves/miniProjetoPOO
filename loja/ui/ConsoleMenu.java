@@ -350,7 +350,33 @@ public class ConsoleMenu {
     }
 
     private void criarNota() {
-        System.out.println(">>> Criar Nota de Compra <<<");
+        System.out.println(">>> Nota de Compra <<<");
+
+        //verificar se há clientes
+        if (clien == 0) {
+            System.out.println("Não há clientes cadastrados.");
+            return;
+        }
+
+        //verificar se há produtos
+        if (prod == 0) {
+            System.out.println("Não há produtos cadastrados.");
+            return;
+        }
+
+        //escolher clientes cadastrados
+        for(int i = 0; i <= clien; i++){
+            System.out.println("<<< Clientes Cadastrados >>>");
+            System.out.println(i+1 + clientes[i].getNome());
+            int ncliente = InputUtils.lerInteiro("opção: ");
+
+            if(ncliente < 0 || ncliente >= clien){
+                System.out.println("Cliente inválido.");
+                return;
+            }
+
+            Cliente clienteSelecionado = clientes[ncliente];
+        }
     }
 
     private void listarNotas() {
