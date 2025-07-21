@@ -22,6 +22,7 @@ public class ConsoleMenu {
 
     private static final Cliente[] clientes = new Cliente[200];
     private static int clien = 0;
+
     public void iniciar() {
         int opcao;
         do {
@@ -60,8 +61,17 @@ public class ConsoleMenu {
 
     private void cadastrarProduto() {
         System.out.println(">>> Cadastro de Produto <<<");
-        String codigo = InputUtils.lerTexto("Insira o codigo do produto: ");//verificar se é unico?
-
+        String codigo = InputUtils.lerTexto("Insira o codigo do produto: ");
+        while(produtoExiste(codigo)){
+            System.out.println("Código de Produto já inserido, deseja cadastrar outro produto?");
+            int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
+            if(tentativa == 1)
+                codigo = InputUtils.lerTexto("Insira o codigo do produto: ");
+            else{
+                System.out.println("Produto não cadastrado!");
+                return;
+            }
+        }
         String nome = InputUtils.lerTexto("Insira o nome do produto: ");
 
         BigDecimal precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: ");
@@ -214,7 +224,17 @@ public class ConsoleMenu {
 
     private void cadastrarCliente() {
         System.out.println(">>> Cadastro de Cliente <<<");
-        String identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");//verificar se é unico?
+        String identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
+        while(clienteExiste(identificador)){
+            System.out.println("Cliente já inserido, deseja cadastrar outro cliente?");
+            int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
+            if(tentativa == 1)
+                identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
+            else{
+                System.out.println("Cliente não cadastrado!");
+                return;
+            }
+        }
         String nome = InputUtils.lerTexto("Insira o nome do cliente: ");
         String endereco = InputUtils.lerTexto("Insira o endereço do cliente: ");
         String telefone = InputUtils.lerTexto("Insira o telefone do cliente(exemplo->(DDD)NNNNN-NNNN ): ");
@@ -400,5 +420,20 @@ public class ConsoleMenu {
         return atributo;
     }
 
+    private boolean produtoExiste(String codigo) {
+    for (int i = 0; i < prod; i++) {
+        if (produtos[i].getCodigo().equalsIgnoreCase(codigo)) 
+            return true;
+        }
+    return false;
+}
+
+    private boolean clienteExiste(String identificador) {
+    for (int i = 0; i < clien; i++) {
+        if (clientes[i].getIdentificador().equalsIgnoreCase(identificador))
+            return true;
+        }
+    return false;
+}
 }
 
