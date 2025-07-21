@@ -38,5 +38,10 @@ public class Cliente{
         this.telefone = telefone;
     }
 
-    
+    public void exibirCliente(){
+        System.out.println("- Nome:" + this.nome);
+        System.out.println("- Identificador: " + this.identificador);
+        System.out.println("- Endereço: " + this.endereco);
+        System.out.println("- Telefone: " + this.telefone);
+    }
 }

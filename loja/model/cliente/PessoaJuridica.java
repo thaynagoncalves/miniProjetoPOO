@@ -23,5 +23,13 @@ public class PessoaJuridica extends Cliente{
     public void setInscricaoEstadual(String inscricaoEstadual) {
         this.inscricaoEstadual = inscricaoEstadual;
     }
+
+    @Override
+    public void exibirCliente(){
+        super.exibirCliente();
+        System.out.println("- Tipo: Pessoa Jurídica");
+        System.out.println("- CNPJ: " + this.cnpj);
+        System.out.println("- Inscrição Estadual: " + this.inscricaoEstadual);
+    }
     
 }

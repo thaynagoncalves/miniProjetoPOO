@@ -1,12 +1,13 @@
 package loja.model.nota;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 import loja.model.cliente.Cliente;
 
 public class Nota{
     Cliente cliente;
-    ItemNota[] itens = new ItemNota[200];;
+    ItemNota[] itens = new ItemNota[200];
+    private static int numItens = 0;
     long idNota;
     LocalDateTime dataEmissao;
 
@@ -18,11 +19,6 @@ public class Nota{
     public Cliente getCliente() {
         return cliente;
     }
-
-    public long getIdNota() {
-        return idNota;
-    }
-
 
     public void setIdNota(long idNota) {
         int min = 100000;
@@ -41,6 +37,16 @@ public class Nota{
     }
 
     
-
+    public void imprimirNota(){
+        System.out.println("Nota N° " + this.idNota);
+        System.out.println("Emissão: " + this.dataEmissao);
+        this.cliente.exibirCliente();
+        System.out.println("CÓDIGO     DESCRIÇÃO            QTDE.   VALOR UNITÁRIO   TOTAL");
+        for(int i=0; i<numItens; i++){
+            System.out.println(this.itens[i].getProduto().getCodigo()+"    "+this.itens[i].getProduto().getNome()+
+                                "    "+this.itens[i].getProduto()+"    "+this.itens[i].getQuantidade()+"    "+
+                                this.itens[i].getProduto().getPrecoBase()+"    "+this.itens[i].getTotalItem()+"    ");
+        }
+    }
     
 }

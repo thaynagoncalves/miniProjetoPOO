@@ -27,4 +27,11 @@ public class PessoaFisica extends Cliente{
         this.dataNascimento = dataNascimento;
     }
     
+    @Override
+    public void exibirCliente(){
+        super.exibirCliente();
+        System.out.println("- Tipo: Pessoa Física");
+        System.out.println("- CPF: " + this.cpf);
+        System.out.println("- Data de Nascimento: " + this.dataNascimento);
+    }
 }

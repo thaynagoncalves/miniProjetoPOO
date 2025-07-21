@@ -421,22 +421,16 @@ public class ConsoleMenu {
     private void listarClientes() {
         System.out.println(">>> Clientes Cadastrados <<<");
         for(int i=0; i<clien;i++){
-            System.out.println(i+1 + "-    " + clientes[i].getNome());
-            System.out.println("- Identificador: " + clientes[i].getIdentificador());
-            System.out.println("- Endereço: " + clientes[i].getEndereco());
-            System.out.println("- Telefone: " + clientes[i].getTelefone());
             if(clientes[i] instanceof PessoaFisica){
             PessoaFisica ps = (PessoaFisica) clientes[i];
-            System.out.println("- Tipo: Pessoa Física");
-            System.out.println("- CPF: " + ps.getCpf());
-            System.out.println("- Data de Nascimento: " + ps.getDataNascimento());
+            System.out.println(i+1);
+            ps.exibirCliente();
             }
 
             if(clientes[i] instanceof PessoaJuridica){
             PessoaJuridica ps1 = (PessoaJuridica) clientes[i];
-            System.out.println("- Tipo: Pessoa Jurídica");
-            System.out.println("- CNPJ: " + ps1.getCnpj());
-            System.out.println("- Inscrição Estadual: " + ps1.getInscricaoEstadual());
+            System.out.println(i+1);
+            ps1.exibirCliente();
             }
         }
     }
