@@ -32,60 +32,7 @@ public class ConsoleMenu {
             opcao = InputUtils.lerInteiro("Escolha uma opção: ");
 
             switch (opcao) {
-                case 1 ->{
-                            System.out.println("===Cadastro Produto===");
-
-
-
-
-                    String codigo = InputUtils.lerTexto("Insira o codigo do produto: ");//verificar se é unico?
-
-                    String nome = InputUtils.lerTexto("Insira o nome do produto: ");
-
-                    BigDecimal precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: ");
-
-
-                    int op;
-                    do {
-                        System.out.println("Insira o tipo do produto: ");
-                        System.out.println(("1 - Produto digital"));
-                        System.out.println(("2 - Produto físico"));
-                        System.out.println("3 - Produto perecível");
-                         op = InputUtils.lerInteiro("opção: ");
-                    }  while(op < 1 || op > 3);
-
-
-                        Produto novo = null;
-                        switch (op){
-                            case 1:
-                                double tamanhoDoArquivo = InputUtils.lerDouble("Insira o tamanho do arquivo: ");
-                                String formatoDoArquivo = InputUtils.lerTexto("Insira o formato do arquivo: ");
-                                String linkDowload = InputUtils.lerTexto("Insira o link para dowload do arquivo: ");
-                                novo = new ProdutoDigital(codigo,nome,precoBase,tamanhoDoArquivo,formatoDoArquivo,linkDowload);
-                                break;
-                            case 2:
-                                double pesoGramas = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
-                                int estoque = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
-                                novo = new ProdutoFisico(codigo,nome,precoBase,pesoGramas,estoque);
-                                break;
-                            case 3:
-                                LocalDate dataDeValidade = InputUtils.lerData("Insira a data de validade do produto: ");
-                                double precoGramas2 = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
-                                int estoque2 = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
-                                novo = new ProdutoPerecivel(codigo,nome,precoBase,precoGramas2,dataDeValidade,estoque2);
-                                break;
-
-
-                        }
-
-                        produtos[prod] = novo;
-                        prod++;
-
-                    System.out.println("Produto cadastrado com sucesso!");
-                    InputUtils.pausar();
-
-
-                }
+                case 1 ->  cadastrarProduto();
                 case 2 -> alterarProduto();
                 case 3 -> cadastrarCliente();
                 case 4 -> alterarCliente();
@@ -106,7 +53,49 @@ public class ConsoleMenu {
 
     private void cadastrarProduto() {
         System.out.println(">>> Cadastro de Produto <<<");
-        // use InputUtils.lerTexto, lerBigDecimal, etc.
+        String codigo = InputUtils.lerTexto("Insira o codigo do produto: ");//verificar se é unico?
+
+        String nome = InputUtils.lerTexto("Insira o nome do produto: ");
+
+        BigDecimal precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: ");
+
+
+        int op;
+        do {
+            System.out.println("Insira o tipo do produto: ");
+            System.out.println(("1 - Produto digital"));
+            System.out.println(("2 - Produto físico"));
+            System.out.println("3 - Produto perecível");
+            op = InputUtils.lerInteiro("opção: ");
+        }  while(op < 1 || op > 3);
+
+
+        Produto novo = null;
+        switch (op){
+        case 1:
+            double tamanhoDoArquivo = InputUtils.lerDouble("Insira o tamanho do arquivo: ");
+            String formatoDoArquivo = InputUtils.lerTexto("Insira o formato do arquivo: ");
+            String linkDowload = InputUtils.lerTexto("Insira o link para dowload do arquivo: ");
+            novo = new ProdutoDigital(codigo,nome,precoBase,tamanhoDoArquivo,formatoDoArquivo,linkDowload);
+            break;
+        case 2:
+            double pesoGramas = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
+            int estoque = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
+            novo = new ProdutoFisico(codigo,nome,precoBase,pesoGramas,estoque);
+            break;
+        case 3:
+            LocalDate dataDeValidade = InputUtils.lerData("Insira a data de validade do produto: ");
+            double precoGramas2 = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
+            int estoque2 = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
+            novo = new ProdutoPerecivel(codigo,nome,precoBase,precoGramas2,dataDeValidade,estoque2);
+            break;
+        }
+
+        produtos[prod] = novo;
+        prod++;
+
+        System.out.println("Produto cadastrado com sucesso!");
+        InputUtils.pausar();
     }
 
     private void alterarProduto() {
@@ -137,7 +126,4 @@ public class ConsoleMenu {
         System.out.println(">>> Clientes Cadastrados <<<");
     }
 }
-    private void listarClientes() {
-        System.out.println(">>> Clientes Cadastrados <<<");
-    }
-}
+
