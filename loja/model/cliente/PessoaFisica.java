@@ -16,9 +16,15 @@ public class PessoaFisica extends Cliente{
     public String getCpf() {
         return cpf;
     }
-
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
     public LocalDate getDataNascimento() {
         return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
     
 }

@@ -1,9 +1,14 @@
 package loja.ui;
 
+
 import loja.model.produto.Produto;
 import loja.model.produto.ProdutoDigital;
 import loja.model.produto.ProdutoFisico;
 import loja.model.produto.ProdutoPerecivel;
+
+import loja.model.cliente.Cliente;
+import loja.model.cliente.PessoaFisica;
+import loja.model.cliente.PessoaJuridica;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +20,8 @@ public class ConsoleMenu {
     private static final Produto[] produtos = new Produto[200];
     private static int prod = 0;
 
+    private static final Cliente[] clientes = new Cliente[200];
+    private static int clien = 0;
     public void iniciar() {
         int opcao;
         do {
@@ -32,16 +39,16 @@ public class ConsoleMenu {
             opcao = InputUtils.lerInteiro("Escolha uma opção: ");
 
             switch (opcao) {
-                case 1 ->  cadastrarProduto();
-                case 2 -> alterarProduto();
-                case 3 -> cadastrarCliente();
-                case 4 -> alterarCliente();
-                case 5 -> criarNota();
-                case 6 -> listarNotas();
-                case 7 -> listarProdutos();
-                case 8 -> listarClientes();
-                case 0 -> System.out.println("Saindo do sistema...");
-                default -> System.out.println("Opção inválida.");
+                case 1: cadastrarProduto();break;
+                case 2: alterarProduto();break;
+                case 3: cadastrarCliente();break;
+                case 4: alterarCliente();break;
+                case 5: criarNota();break;
+                case 6: listarNotas();break;
+                case 7: listarProdutos();break;
+                case 8: listarClientes();break;
+                case 0: System.out.println("Saindo do sistema...");break;
+                default: System.out.println("Opção inválida.");break;
             }
 
             InputUtils.pausar();
@@ -63,8 +70,8 @@ public class ConsoleMenu {
         int op;
         do {
             System.out.println("Insira o tipo do produto: ");
-            System.out.println(("1 - Produto digital"));
-            System.out.println(("2 - Produto físico"));
+            System.out.println("1 - Produto digital");
+            System.out.println("2 - Produto físico");
             System.out.println("3 - Produto perecível");
             op = InputUtils.lerInteiro("opção: ");
         }  while(op < 1 || op > 3);
@@ -100,14 +107,220 @@ public class ConsoleMenu {
 
     private void alterarProduto() {
         System.out.println(">>> Alterar Produto <<<");
+        String codigo = InputUtils.lerTexto("Insira o codigo do produto que queira alterar: ");
+        for(int i=0; i<prod;i++){
+            if(produtos[i].getCodigo().equalsIgnoreCase(codigo)){
+                int atributo;
+                if(produtos[i] instanceof ProdutoDigital){
+                    atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Tamanho do Arquivo em MB", 
+                                                "5 - Formato do Arquivo", "6 - Link para Download do Arquivo");
+                    switch (atributo){
+                    case 1:
+                        String novoCodigo = InputUtils.lerTexto("Insira o novo codigo do produto: ");
+                        produtos[i].setCodigo(novoCodigo);
+                        break;
+                    case 2:
+                        String novoNome = InputUtils.lerTexto("Insira o novo nome do produto: ");
+                        produtos[i].setNome(novoNome);
+                        break;
+                    case 3:
+                        BigDecimal novoPrecoBase =  InputUtils.lerBigDecimal("Insira o novo preco do produto: ");
+                        produtos[i].setPrecoBase(novoPrecoBase);
+                        break;
+                    case 4:
+                        double novoTamanhoDoArquivo = InputUtils.lerDouble("Insira o novo tamanho do arquivo: ");
+                        ProdutoDigital pd = (ProdutoDigital) produtos[i];
+                        pd.setTamanhoArquivoEmMB(novoTamanhoDoArquivo);
+                        break;
+                    case 5:
+                        String novoFormatoDoArquivo = InputUtils.lerTexto("Insira o novo formato do arquivo: ");
+                        ProdutoDigital pd1 = (ProdutoDigital) produtos[i];
+                        pd1.setFormatoArquivo(novoFormatoDoArquivo);
+                        break;
+                    case 6:
+                        String novoLinkDowload = InputUtils.lerTexto("Insira o novo link para dowload do arquivo: ");
+                        ProdutoDigital pd2 = (ProdutoDigital) produtos[i];
+                        pd2.setLinkDownload(novoLinkDowload);
+                        break;
+                    }
+                }
+                if(produtos[i] instanceof ProdutoFisico){
+                    atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Peso em Gramas", 
+                                                "5 - Estoque", "");
+                    switch (atributo){
+                    case 1:
+                        String novoCodigo = InputUtils.lerTexto("Insira o novo codigo do produto: ");
+                        produtos[i].setCodigo(novoCodigo);
+                        break;
+                    case 2:
+                        String novoNome = InputUtils.lerTexto("Insira o novo nome do produto: ");
+                        produtos[i].setNome(novoNome);
+                        break;
+                    case 3:
+                        BigDecimal novoPrecoBase =  InputUtils.lerBigDecimal("Insira o novo preco do produto: ");
+                        produtos[i].setPrecoBase(novoPrecoBase);
+                        break;
+                    case 4:
+                        double novopesoGramas = InputUtils.lerDouble("Insira o novo peso em gramas do produto: ");
+                        ProdutoFisico pd = (ProdutoFisico) produtos[i];
+                        pd.setPesoGramas(novopesoGramas);
+                        break;
+                    case 5:
+                        int novoEstoque = InputUtils.lerInteiro("Insira a nova quantidade em estoque do produto: ");
+                        ProdutoFisico pd2 = (ProdutoFisico) produtos[i];
+                        pd2.setEstoque(novoEstoque);
+                        break;
+                    case 6:
+                        break;
+                    }
+                }
+                if(produtos[i] instanceof ProdutoPerecivel){
+                    atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Peso em Gramas", 
+                                                "5 - Estoque", "6 - Data de Validade");
+                    switch (atributo){
+                    case 1:
+                        String novoCodigo = InputUtils.lerTexto("Insira o novo codigo do produto: ");
+                        produtos[i].setCodigo(novoCodigo);
+                        break;
+                    case 2:
+                        String novoNome = InputUtils.lerTexto("Insira o novo nome do produto: ");
+                        produtos[i].setNome(novoNome);
+                        break;
+                    case 3:
+                        BigDecimal novoPrecoBase =  InputUtils.lerBigDecimal("Insira o novo preco do produto: ");
+                        produtos[i].setPrecoBase(novoPrecoBase);
+                        break;
+                    case 4:
+                        double novopesoGramas = InputUtils.lerDouble("Insira o novo peso em gramas do produto: ");
+                        ProdutoPerecivel pd = (ProdutoPerecivel) produtos[i];
+                        pd.setPesoGramas(novopesoGramas);
+                        break;
+                    case 5:
+                        int novoEstoque = InputUtils.lerInteiro("Insira a nova quantidade em estoque do produto: ");
+                        ProdutoPerecivel pd1 = (ProdutoPerecivel) produtos[i];
+                        pd1.setEstoque(novoEstoque);
+                        break;
+                    case 6:
+                        LocalDate novaDataDeValidade = InputUtils.lerData("Insira a nova data de validade do produto: ");
+                        ProdutoPerecivel pd2 = (ProdutoPerecivel) produtos[i];
+                        pd2.setDataValidade(novaDataDeValidade);
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
     private void cadastrarCliente() {
         System.out.println(">>> Cadastro de Cliente <<<");
+        String identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");//verificar se é unico?
+        String nome = InputUtils.lerTexto("Insira o nome do cliente: ");
+        String endereco = InputUtils.lerTexto("Insira o endereço do cliente: ");
+        String telefone = InputUtils.lerTexto("Insira o telefone do cliente(exemplo->(DDD)NNNNN-NNNN ): ");
+        
+        int op;
+        do {
+            System.out.println("Insira o tipo do cliente: ");
+            System.out.println("1 - Pessoa Física");
+            System.out.println("2 - Pessoa Jurídica");
+            op = InputUtils.lerInteiro("opção: ");
+        }  while(op != 1 && op != 2);
+
+
+        Cliente novo = null;
+        switch (op){
+        case 1:
+            String cpf = InputUtils.lerTexto("Insira o CPF do cliente: ");
+            LocalDate dataNascimento = InputUtils.lerData("Insira a data de nascimento do cliente: ");
+            novo = new PessoaFisica(identificador, nome, endereco, telefone, cpf, dataNascimento);
+            break;
+        case 2:
+            String cnpj = InputUtils.lerTexto("Insira o CNPJ do cliente ou empresa: ");
+            String inscricaoEstadual = InputUtils.lerTexto("Insira a Inscrição Estadual do cliente ou empresa: ");
+            novo = new PessoaJuridica(identificador, nome, endereco, telefone, cnpj, inscricaoEstadual);
+            break;
+        }
+
+        clientes[clien] = novo;
+        clien++;
+
+        System.out.println("Cliente cadastrado com sucesso!");
+        InputUtils.pausar();
     }
 
     private void alterarCliente() {
         System.out.println(">>> Alterar Cliente <<<");
+        String identificador = InputUtils.lerTexto("Insira o identificador do cliente que queira alterar: ");
+        for(int i=0; i<clien;i++){
+            if(clientes[i].getIdentificador().equalsIgnoreCase(identificador)){
+                int atributo;
+                if(clientes[i] instanceof PessoaFisica){
+                    atributo = escolheAtributo("1 - Identificador", "2 - Nome", "3 - Endereço", "4 - Telefone", 
+                                                "5 - CPF", "6 - Data de Nascimento");
+                    switch (atributo){
+                    case 1:
+                        String novoIdentificador = InputUtils.lerTexto("Insira o novo identificador do cliente: ");
+                        clientes[i].setIdentificador(novoIdentificador);
+                        break;
+                    case 2:
+                        String novoNome = InputUtils.lerTexto("Insira o novo nome do cliente: ");
+                        clientes[i].setNome(novoNome);
+                        break;
+                    case 3:
+                        String novoEndereco = InputUtils.lerTexto("Insira o novo endereço do cliente: ");
+                        clientes[i].setEndereco(novoEndereco);
+                        break;
+                    case 4:
+                        String novoTelefone = InputUtils.lerTexto("Insira o novo telefone do cliente(exemplo->(DDD)NNNNN-NNNN ): ");
+                        clientes[i].setTelefone(novoTelefone);
+                        break;
+                    case 5:
+                        String novoCpf = InputUtils.lerTexto("Insira o novo CPF do cliente: ");
+                        PessoaFisica ps1 = (PessoaFisica) clientes[i];
+                        ps1.setCpf(novoCpf);
+                        break;
+                    case 6:
+                        LocalDate novaDataNascimento = InputUtils.lerData("Insira a nova data de nascimento do cliente: ");
+                        PessoaFisica ps2 = (PessoaFisica) clientes[i];
+                        ps2.setDataNascimento(novaDataNascimento);
+                        break;
+                    }
+                }
+                if(clientes[i] instanceof PessoaJuridica){
+                    atributo = escolheAtributo("1 - Identificador", "2 - Nome", "3 - Endereço", "4 - Telefone", 
+                                                "5 - CNPJ", "6 - Data de Nascimento");
+                    switch (atributo){
+                    case 1:
+                        String novoIdentificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
+                        clientes[i].setIdentificador(novoIdentificador);
+                        break;
+                    case 2:
+                        String novoNome = InputUtils.lerTexto("Insira o novo nome do cliente: ");
+                        clientes[i].setNome(novoNome);
+                        break;
+                    case 3:
+                        String novoEndereco = InputUtils.lerTexto("Insira o novo endereço do cliente: ");
+                        clientes[i].setEndereco(novoEndereco);
+                        break;
+                    case 4:
+                        String novoTelefone = InputUtils.lerTexto("Insira o novo telefone do cliente(exemplo->(DDD)NNNNN-NNNN ): ");
+                        clientes[i].setTelefone(novoTelefone);
+                        break;
+                    case 5:
+                        String novoCnpj = InputUtils.lerTexto("Insira o novo CNPJ do cliente: ");;
+                        PessoaJuridica ps1 = (PessoaJuridica) clientes[i];
+                        ps1.setCnpj(novoCnpj);
+                        break;
+                    case 6:
+                        String novaInscricaoEstadual = InputUtils.lerTexto("Insira a nova Inscrição Estadual do cliente: ");
+                        PessoaJuridica ps2 = (PessoaJuridica) clientes[i];
+                        ps2.setInscricaoEstadual(novaInscricaoEstadual);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     private void criarNota() {
@@ -125,5 +338,21 @@ public class ConsoleMenu {
     private void listarClientes() {
         System.out.println(">>> Clientes Cadastrados <<<");
     }
+
+    public int escolheAtributo(String string1, String string2, String string3, String string4, String string5, String string6){
+        int atributo;
+        do {
+                    System.out.println("Insira o qual atributo que deseja alterar: ");
+                    System.out.println(string1);
+                    System.out.println(string2);
+                    System.out.println(string3);
+                    System.out.println(string4);
+                    System.out.println(string5);
+                    System.out.println(string6);
+                    atributo = InputUtils.lerInteiro("opção: ");
+                }  while(atributo < 1 | atributo > 6);
+        return atributo;
+    }
+
 }
 
