@@ -10,6 +10,9 @@ import loja.model.cliente.Cliente;
 import loja.model.cliente.PessoaFisica;
 import loja.model.cliente.PessoaJuridica;
 
+import loja.model.nota.Nota;
+import loja.model.nota.ItemNota;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -22,6 +25,9 @@ public class ConsoleMenu {
 
     private static final Cliente[] clientes = new Cliente[200];
     private static int clien = 0;
+
+    private static final Nota[] notas = new Nota[200];
+    private static int numNotas = 0;
 
     public void iniciar() {
         int opcao;
@@ -349,6 +355,10 @@ public class ConsoleMenu {
 
     private void listarNotas() {
         System.out.println(">>> Notas Emitidas <<<");
+        for (int i = 0; i < numNotas; i++) {
+        System.out.println(notas[i]);
+        System.out.println("----------------------------------------------------");
+        }
     }
 
     private void listarProdutos() {
