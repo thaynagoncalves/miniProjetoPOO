@@ -6,30 +6,17 @@ import loja.model.cliente.Cliente;
 
 public class Nota{
     Cliente cliente;
-    ItemNota itens;
+    ItemNota[] itens = new ItemNota[200];;
     long idNota;
     LocalDateTime dataEmissao;
 
     
-    public Nota(Cliente cliente, ItemNota itens, BigDecimal subtotal, BigDecimal valorTotal) {
+    public Nota(Cliente cliente) {
         this.cliente = cliente;
-        this.itens = itens;
     }
 
     public Cliente getCliente() {
         return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public ItemNota getItens() {
-        return itens;
-    }
-
-    public void setItens(ItemNota itens) {
-        this.itens = itens;
     }
 
     public long getIdNota() {
