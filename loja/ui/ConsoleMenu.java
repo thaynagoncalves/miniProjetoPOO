@@ -333,12 +333,58 @@ public class ConsoleMenu {
 
     private void listarProdutos() {
         System.out.println(">>> Produtos Cadastrados <<<");
+        for(int i=0; i<prod;i++){
+            System.out.println(i+1 + "-    " + produtos[i].getNome());
+            System.out.println("- Código: " + produtos[i].getCodigo());
+            System.out.println("- Preço Base: " + produtos[i].getPrecoBase());
+            if(produtos[i] instanceof ProdutoDigital){
+            ProdutoDigital pd = (ProdutoDigital) produtos[i];
+            System.out.println("- Tipo: Produto Digital");
+            System.out.println("- Tamanho do Arquivo: " + pd.getTamanhoArquivoEmMB());
+            System.out.println("- Formato do Arquivo: " + pd.getFormatoArquivo());
+            System.out.println("- Link para Download do Arquivo: " + pd.getLinkDownload());
+            }
+
+            if(produtos[i] instanceof ProdutoFisico){
+            ProdutoFisico pd1 = (ProdutoFisico) produtos[i];
+            System.out.println("- Tipo: Produto Físico");
+            System.out.println("- Peso em Gramas do Produto: " + pd1.getPesoGramas());
+            System.out.println("- Estoque: " + pd1.getEstoque());
+            }
+
+            if(produtos[i] instanceof ProdutoPerecivel){
+            ProdutoPerecivel pd2 = (ProdutoPerecivel) produtos[i];
+            System.out.println("- Tipo: Produto Perecível");
+            System.out.println("- Peso em Gramas do Produto: " + pd2.getPesoGramas());
+            System.out.println("- Estoque: " + pd2.getEstoque());
+            System.out.println("- Data de Validade do Lote: " + pd2.getDataValidade());
+            }
+        }
     }
 
     private void listarClientes() {
         System.out.println(">>> Clientes Cadastrados <<<");
-    }
+        for(int i=0; i<clien;i++){
+            System.out.println(i+1 + "-    " + clientes[i].getNome());
+            System.out.println("- Identificador: " + clientes[i].getIdentificador());
+            System.out.println("- Endereço: " + clientes[i].getEndereco());
+            System.out.println("- Telefone: " + clientes[i].getTelefone());
+            if(clientes[i] instanceof PessoaFisica){
+            PessoaFisica ps = (PessoaFisica) clientes[i];
+            System.out.println("- Tipo: Pessoa Física");
+            System.out.println("- CPF: " + ps.getCpf());
+            System.out.println("- Data de Nascimento: " + ps.getDataNascimento());
+            }
 
+            if(clientes[i] instanceof PessoaJuridica){
+            PessoaJuridica ps1 = (PessoaJuridica) clientes[i];
+            System.out.println("- Tipo: Pessoa Jurídica");
+            System.out.println("- CNPJ: " + ps1.getCnpj());
+            System.out.println("- Inscrição Estadual: " + ps1.getInscricaoEstadual());
+            }
+        }
+    }
+    
     public int escolheAtributo(String string1, String string2, String string3, String string4, String string5, String string6){
         int atributo;
         do {
