@@ -83,7 +83,14 @@ public class ConsoleMenu {
         }
         String nome;
 
-        BigDecimal precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: R$");
+        BigDecimal precoBase;
+        do{
+            precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: R$");
+
+            if(!valorValido(precoBase))
+            System.out.println("Insira um valor válido! (maior que zero)");
+
+        }while(!valorValido(precoBase));
 
 
         int op;
@@ -114,21 +121,65 @@ public class ConsoleMenu {
 
         switch (op){
         case 1:
-            double tamanhoDoArquivo = InputUtils.lerDouble("Insira o tamanho do arquivo: ");
+            double tamanhoDoArquivo;
+            do{
+            tamanhoDoArquivo = InputUtils.lerDouble("Insira o tamanho do arquivo: ");
+            
+
+            if(!valorValidoD(tamanhoDoArquivo)){
+                System.out.println("Insira um valor válido! (maior que zero)");
+            }
+            }while(!valorValidoD(tamanhoDoArquivo));
             String formatoDoArquivo = InputUtils.lerTexto("Insira o formato do arquivo: ");
             String linkDowload = InputUtils.lerTexto("Insira o link para dowload do arquivo: ");
             novo = new ProdutoDigital(codigo,nome,precoBase,tamanhoDoArquivo,formatoDoArquivo,linkDowload);
             break;
         case 2:
-            double pesoGramas = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
-            int estoque = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
+            double pesoGramas;
+            do{
+                pesoGramas = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
+                if(!valorValidoD(pesoGramas))
+                System.out.println("Insira um valor válido!(maior que zero)");
+            }while(!valorValidoD(pesoGramas));
+
+            int estoque;
+
+            do{
+                estoque = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
+                if(!valorValidoI(estoque))
+                 System.out.println("Insira um valor válido!(maior que zero)");
+
+            }while(!valorValidoI(estoque));
+
             novo = new ProdutoFisico(codigo,nome,precoBase,pesoGramas,estoque);
             break;
         case 3:
-            LocalDate dataDeValidade = InputUtils.lerData("Insira a data de validade do produto: ");
-            double precoGramas2 = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
-            int estoque2 = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
-            novo = new ProdutoPerecivel(codigo,nome,precoBase,precoGramas2,dataDeValidade,estoque2);
+            LocalDate dataDeValidade;
+
+            do { 
+               dataDeValidade = InputUtils.lerData("Insira a data de validade do produto: ");
+
+               if(!verificarData(dataDeValidade))
+               System.out.println("Insira uma data valida!(entre um ano de validade)");
+            } while (!verificarData(dataDeValidade));
+
+
+            double pesoGramas2;
+             do{
+             pesoGramas2 = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
+                if(!valorValidoD(pesoGramas2))
+                System.out.println("Insira um valor válido!(maior que zero)");
+            }while(!valorValidoD(pesoGramas2));
+
+
+
+            int estoque2;
+             do{
+                estoque2 = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
+                if(!valorValidoI(estoque2))
+                 System.out.println("Insira um valor válido!(maior que zero)");
+
+            }while(!valorValidoI(estoque2));
             break;
         }
 
@@ -142,9 +193,6 @@ public class ConsoleMenu {
     private void alterarProduto() {
         System.out.println(">>> Alterar Produto <<<");
         String codigo = InputUtils.lerTexto("Insira o codigo do produto que queira alterar: ");
-        if (!produtoExiste(codigo)) {
-        System.out.println("Código do produto não encontrado, tente novamente.");
-    }
         for(int i=0; i<prod;i++){
             if(produtos[i].getCodigo().equalsIgnoreCase(codigo)){
                 int atributo;
@@ -299,9 +347,6 @@ public class ConsoleMenu {
     private void alterarCliente() {
         System.out.println(">>> Alterar Cliente <<<");
         String identificador = InputUtils.lerTexto("Insira o identificador do cliente que queira alterar: ");
-        if (!clienteExiste(identificador)) {
-        System.out.println("Identificador do cliente não existe, tente novamente.");
-        }
         for(int i=0; i<clien;i++){
             if(clientes[i].getIdentificador().equalsIgnoreCase(identificador)){
                 int atributo;
@@ -528,7 +573,21 @@ private boolean nomeValido(String nome){
 private boolean codigoValido(String codigo ){
     return codigo.matches("\\d{6}");//exatamente 6 digitos numericos
 }
-
-
+private boolean valorValido(BigDecimal valor){
+    return valor != null && valor.compareTo(BigDecimal.ZERO) > 0;//valor é maior que 0.
 }
+ 
+private boolean valorValidoD(double valor){
+    return valor > 0;
+}
+private boolean valorValidoI(int valor){
+    return valor > 0;
+}
+private boolean verificarData(LocalDate data) {
+    LocalDate inicio = LocalDate.of(2025, 7, 23);
+    LocalDate fim = LocalDate.of(2026, 7, 23);
 
+    return (data.isEqual(inicio) || data.isAfter(inicio)) &&
+           (data.isEqual(fim) || data.isBefore(fim));
+}
+}
