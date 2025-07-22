@@ -1,19 +1,16 @@
 package loja.ui;
 
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import loja.model.cliente.Cliente;
+import loja.model.cliente.PessoaFisica;
+import loja.model.cliente.PessoaJuridica;
+import loja.model.nota.Nota;
 import loja.model.produto.Produto;
 import loja.model.produto.ProdutoDigital;
 import loja.model.produto.ProdutoFisico;
 import loja.model.produto.ProdutoPerecivel;
-
-import loja.model.cliente.Cliente;
-import loja.model.cliente.PessoaFisica;
-import loja.model.cliente.PessoaJuridica;
-
-import loja.model.nota.Nota;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 
 
@@ -66,7 +63,14 @@ public class ConsoleMenu {
 
     private void cadastrarProduto() {
         System.out.println(">>> Cadastro de Produto <<<");
-        String codigo = InputUtils.lerTexto("Insira o codigo do produto: ");
+        String codigo;
+        do{
+            codigo = InputUtils.lerTexto("Insira o codigo do produto:(6 dígitos numéricos ) ");
+            
+            if(!codigoValido(codigo))
+            System.out.println("Digite um código válido!");
+            
+        }while(!codigoValido(codigo));
         while(produtoExiste(codigo)){
             System.out.println("Código de Produto já inserido, deseja cadastrar outro produto?");
             int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
@@ -77,9 +81,9 @@ public class ConsoleMenu {
                 return;
             }
         }
-        String nome = InputUtils.lerTexto("Insira o nome do produto: ");
+        String nome;
 
-        BigDecimal precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: ");
+        BigDecimal precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: R$");
 
 
         int op;
@@ -92,7 +96,22 @@ public class ConsoleMenu {
         }  while(op < 1 || op > 3);
 
 
+        if(op == 2 || op == 3){
+         nome = InputUtils.lerTexto("Insira o nome do produto:(sem valores númericos) ");
+         do{
+            if(!nomeValido(nome)){
+            System.out.println("Insira um nome valido!!");
+            nome = InputUtils.lerTexto("Insira o nome do produto:(sem valores númericos) ");
+            }
+            else
+            break;
+         }while(!nomeValido(nome));
+        }
+         else{
+            nome = InputUtils.lerTexto("Insira o nome do produto: ");
+         }
         Produto novo = null;
+
         switch (op){
         case 1:
             double tamanhoDoArquivo = InputUtils.lerDouble("Insira o tamanho do arquivo: ");
@@ -497,5 +516,13 @@ public class ConsoleMenu {
         }
     return false;
 }
+private boolean nomeValido(String nome){
+    return nome.matches("[A-Za-zÀ-ÖØ-öø-ÿ\\s]+");
+}
+private boolean codigoValido(String codigo ){
+    return codigo.matches("\\d{6}");//exatamente 6 digitos numericos
+}
+
+
 }
 
