@@ -142,6 +142,9 @@ public class ConsoleMenu {
     private void alterarProduto() {
         System.out.println(">>> Alterar Produto <<<");
         String codigo = InputUtils.lerTexto("Insira o codigo do produto que queira alterar: ");
+        if (!produtoExiste(codigo)) {
+        System.out.println("Código do produto não encontrado, tente novamente.");
+    }
         for(int i=0; i<prod;i++){
             if(produtos[i].getCodigo().equalsIgnoreCase(codigo)){
                 int atributo;
@@ -296,6 +299,9 @@ public class ConsoleMenu {
     private void alterarCliente() {
         System.out.println(">>> Alterar Cliente <<<");
         String identificador = InputUtils.lerTexto("Insira o identificador do cliente que queira alterar: ");
+        if (!clienteExiste(identificador)) {
+        System.out.println("Identificador do cliente não existe, tente novamente.");
+        }
         for(int i=0; i<clien;i++){
             if(clientes[i].getIdentificador().equalsIgnoreCase(identificador)){
                 int atributo;
