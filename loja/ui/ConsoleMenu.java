@@ -53,8 +53,9 @@ public class ConsoleMenu {
                 case 0: System.out.println("Saindo do sistema...");break;
                 default: System.out.println("Opção inválida.");break;
             }
-
+            if(opcao != 0)
             InputUtils.pausar();
+            
 
         } while (opcao != 0);
     }
@@ -187,7 +188,6 @@ public class ConsoleMenu {
         prod++;
 
         System.out.println("Produto cadastrado com sucesso!");
-        InputUtils.pausar();
     }
 
     private void alterarProduto() {
@@ -341,7 +341,6 @@ public class ConsoleMenu {
         clien++;
 
         System.out.println("Cliente cadastrado com sucesso!");
-        InputUtils.pausar();
     }
 
     private void alterarCliente() {
@@ -591,3 +590,4 @@ private boolean verificarData(LocalDate data) {
            (data.isEqual(fim) || data.isBefore(fim));
 }
 }
+
