@@ -1,6 +1,8 @@
 package loja.model.cliente;
 
-public class PessoaJuridica extends Cliente{
+
+
+public class PessoaJuridica extends Cliente {
     private String cnpj;
     
     public PessoaJuridica(String identificador, String nome, String endereco, String telefone, String cnpj) {
@@ -17,8 +19,8 @@ public class PessoaJuridica extends Cliente{
 
 
     @Override
-    public void exibirCliente(){
-        super.exibirCliente();
+    public void exibirInformacoes(){
+        super.exibirInformacoes();
         System.out.println("- Tipo: Pessoa Jurídica");
         System.out.println("- CNPJ: " + this.cnpj);
     }

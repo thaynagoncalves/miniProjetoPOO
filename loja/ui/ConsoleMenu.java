@@ -379,13 +379,13 @@ public class ConsoleMenu {
             if(clientes[i] instanceof PessoaFisica){
             PessoaFisica ps = (PessoaFisica) clientes[i];
             System.out.println(i+1);
-            ps.exibirCliente();
+            ps.exibirInformacoes();
             }
 
             if(clientes[i] instanceof PessoaJuridica){
             PessoaJuridica ps1 = (PessoaJuridica) clientes[i];
             System.out.println(i+1);
-            ps1.exibirCliente();
+            ps1.exibirInformacoes();
             }
         }
     }

@@ -1,7 +1,7 @@
 package loja.model.cliente;
 
 
-public class PessoaFisica extends Cliente{
+public class PessoaFisica extends Cliente {
     private String cpf;
     
     public PessoaFisica(String identificador, String nome, String endereco, String telefone, String cpf) {
@@ -18,8 +18,8 @@ public class PessoaFisica extends Cliente{
 
     
     @Override
-    public void exibirCliente(){
-        super.exibirCliente();
+    public void exibirInformacoes(){
+        super.exibirInformacoes();
         System.out.println("- Tipo: Pessoa Física");
         System.out.println("- CPF: " + this.cpf);
     }

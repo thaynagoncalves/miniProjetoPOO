@@ -1,6 +1,8 @@
 package loja.model.cliente;
 
-public abstract class Cliente{
+import loja.model.Exibivel;
+
+public abstract class Cliente implements Exibivel {
     private String identificador;
     private String nome;
     private String endereco;
@@ -38,7 +40,7 @@ public abstract class Cliente{
         this.telefone = telefone;
     }
 
-    public void exibirCliente(){
+    public void exibirInformacoes(){
         System.out.println("- Nome:" + this.nome);
         System.out.println("- Identificador: " + this.identificador);
         System.out.println("- Endereço: " + this.endereco);

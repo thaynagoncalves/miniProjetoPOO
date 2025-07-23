@@ -82,11 +82,11 @@ public class Nota{
         System.out.println("Emissão: " + this.dataEmissao);
         if(cliente instanceof PessoaFisica){
             PessoaFisica ps = (PessoaFisica) this.cliente;
-            ps.exibirCliente();
+            ps.exibirInformacoes();
         }
         if(cliente instanceof PessoaJuridica){
             PessoaJuridica ps = (PessoaJuridica) this.cliente;
-            ps.exibirCliente();
+            ps.exibirInformacoes();
         }
         System.out.println("CÓDIGO     DESCRIÇÃO            QTDE.   VALOR UNITÁRIO   TOTAL");
         for(int i=0; i<numItens; i++){

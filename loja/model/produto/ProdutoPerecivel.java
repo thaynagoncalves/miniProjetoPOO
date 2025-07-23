@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-public class ProdutoPerecivel extends Produto{
+public class ProdutoPerecivel extends Produto {
     private LocalDate dataValidade;
     private int estoque;
 

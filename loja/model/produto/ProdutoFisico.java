@@ -2,7 +2,7 @@ package loja.model.produto;
 
 import java.math.BigDecimal;
 
-public class ProdutoFisico extends Produto{
+public class ProdutoFisico extends Produto {
     private double pesoGramas;
     private int estoque;
     
