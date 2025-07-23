@@ -321,14 +321,25 @@ public class ConsoleMenu {
                 return;
             }
             int quantidadeProdutoNaNota = InputUtils.lerInteiro("Selecione a quantidade do produto nessa Compra: ");
-            novo.cadastrarItemNota(produtos[produtoNaNota-1], quantidadeProdutoNaNota);
             if(produtos[produtoNaNota-1]instanceof ProdutoFisico){
-                ProdutoFisico pd2 = (ProdutoFisico) produtos[produtoNaNota-1];
-                pd2.setEstoque(pd2.getEstoque()-quantidadeProdutoNaNota);
-            }else if(produtos[produtoNaNota-1]instanceof ProdutoPerecivel){
-                ProdutoPerecivel pd2 = (ProdutoPerecivel) produtos[produtoNaNota-1];
-                pd2.setEstoque(pd2.getEstoque()-quantidadeProdutoNaNota);
+                ProdutoFisico pf = (ProdutoFisico) produtos[produtoNaNota-1];
+                if(quantidadeProdutoNaNota<=pf.getEstoque()){
+                novo.cadastrarItemNota(produtos[produtoNaNota-1], quantidadeProdutoNaNota);
+                pf.setEstoque(pf.getEstoque()-quantidadeProdutoNaNota);
+                }else {
+                System.out.println("Estoque insuficiente!");
             }
+            }else if(produtos[produtoNaNota-1]instanceof ProdutoPerecivel){
+                ProdutoPerecivel pp = (ProdutoPerecivel) produtos[produtoNaNota-1];
+                if(quantidadeProdutoNaNota<=pp.getEstoque()){
+                novo.cadastrarItemNota(produtos[produtoNaNota-1], quantidadeProdutoNaNota);
+                pp.setEstoque(pp.getEstoque()-quantidadeProdutoNaNota);
+                }else {
+                System.out.println("Estoque insuficiente!");
+            }
+            }else{
+                    novo.cadastrarItemNota(produtos[produtoNaNota-1], quantidadeProdutoNaNota);
+                }
             System.out.println("Deseja cadastrar outro produto?");
             novoProdutoNota = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
         }while(novoProdutoNota == 1);

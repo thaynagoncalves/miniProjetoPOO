@@ -86,6 +86,10 @@ public class Nota{
             PessoaJuridica ps = (PessoaJuridica) this.cliente;
             ps.exibirInformacoes();
         }
+
+        System.out.println("\n\n\n");
+
+        System.out.println("CÓDIGO     DESCRIÇÃO           QTDE   VALOR UNITÁRIO   TOTAL");
         for (int i = 0; i < numItens; i++) {
         Produto produto = itens[i].getProduto();
         String codigo = espacarDireita(produto.getCodigo(), 10);
@@ -101,7 +105,7 @@ public class Nota{
         System.out.println("VALOR TOTAL DA NOTA: R$ " + String.format("%.2f", valorTotal()));
     }
 
-    
+
     private boolean produtoNaNotaExiste(Produto produto) {
     for (int i = 0; i < numItens; i++) {
         if (itens[i].getProduto().getCodigo().equalsIgnoreCase(produto.getCodigo())) 
