@@ -3,7 +3,7 @@ package loja.model.produto;
 import java.math.BigDecimal;
 
 
-public abstract class Produto{
+public abstract class Produto implements ProdutoInterface{
     private String codigo;
     private String nome;
     private BigDecimal precoBase;
