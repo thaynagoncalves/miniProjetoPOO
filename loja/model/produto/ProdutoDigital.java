@@ -2,7 +2,7 @@ package loja.model.produto;
 
 import java.math.BigDecimal;
 
-public class ProdutoDigital extends Produto{
+public class ProdutoDigital extends Produto implements ProdutoInterface {
     private double tamanhoArquivoEmMB;
     private String linkDownload;
 
