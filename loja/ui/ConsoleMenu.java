@@ -208,7 +208,7 @@ public class ConsoleMenu {
             if(tentativa == 1)
                 identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
             else{
-                System.out.println("Nenhum cliente não alterado!");
+                System.out.println("Nenhum cliente alterado!");
                 return;
             }
         }
@@ -300,7 +300,7 @@ public class ConsoleMenu {
             return;
         }
 
-        clienteSelecionado = clientes[ncliente];
+        clienteSelecionado = clientes[ncliente - 1];
         
 
         novo = new Nota(clienteSelecionado);
