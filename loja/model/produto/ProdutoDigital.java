@@ -4,14 +4,11 @@ import java.math.BigDecimal;
 
 public class ProdutoDigital extends Produto{
     private double tamanhoArquivoEmMB;
-    private String formatoArquivo;
     private String linkDownload;
 
-    public ProdutoDigital(String codigo, String nome, BigDecimal precoBase, double tamanhoArquivoEmMB,
-            String formatoArquivo, String linkDownload) {
+    public ProdutoDigital(String codigo, String nome, BigDecimal precoBase, double tamanhoArquivoEmMB, String linkDownload) {
         super(codigo, nome, precoBase);
         this.tamanhoArquivoEmMB = tamanhoArquivoEmMB;
-        this.formatoArquivo = formatoArquivo;
         this.linkDownload = linkDownload;
     }
 
@@ -23,13 +20,6 @@ public class ProdutoDigital extends Produto{
         this.tamanhoArquivoEmMB = tamanhoArquivoEmMB;
     }
 
-    public String getFormatoArquivo() {
-        return formatoArquivo;
-    }
-
-    public void setFormatoArquivo(String formatoArquivo) {
-        this.formatoArquivo = formatoArquivo;
-    }
 
     public String getLinkDownload() {
         return linkDownload;

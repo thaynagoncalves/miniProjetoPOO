@@ -1,6 +1,6 @@
 package loja.model.cliente;
 
-public class Cliente{
+public abstract class Cliente{
     private String identificador;
     private String nome;
     private String endereco;

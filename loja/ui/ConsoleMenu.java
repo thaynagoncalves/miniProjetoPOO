@@ -53,152 +53,53 @@ public class ConsoleMenu {
                 case 0: System.out.println("Saindo do sistema...");break;
                 default: System.out.println("Opção inválida.");break;
             }
-            if(opcao != 0)
-            InputUtils.pausar();
             
 
         } while (opcao != 0);
     }
 
-    // Métodos abaixo são placeholders que você irá implementar
 
     private void cadastrarProduto() {
-        System.out.println(">>> Cadastro de Produto <<<");
-        String codigo;
-        do{
-            codigo = InputUtils.lerTexto("Insira o codigo do produto:(6 dígitos numéricos ) ");
-            
-            if(!codigoValido(codigo))
-            System.out.println("Digite um código válido!");
-            
-        }while(!codigoValido(codigo));
-        while(produtoExiste(codigo)){
-            System.out.println("Código de Produto já inserido, deseja cadastrar outro produto?");
-            int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
-            if(tentativa == 1)
-                codigo = InputUtils.lerTexto("Insira o codigo do produto: ");
-            else{
-                System.out.println("Produto não cadastrado!");
-                return;
-            }
-        }
-        String nome;
-
-        BigDecimal precoBase;
-        do{
-            precoBase =  InputUtils.lerBigDecimal("Insira o preco do produto: R$");
-
-            if(!valorValido(precoBase))
-            System.out.println("Insira um valor válido! (maior que zero)");
-
-        }while(!valorValido(precoBase));
+        System.out.println(">>> Cadastro de Produtos <<<");
 
 
-        int op;
-        do {
-            System.out.println("Insira o tipo do produto: ");
-            System.out.println("1 - Produto digital");
-            System.out.println("2 - Produto físico");
-            System.out.println("3 - Produto perecível");
-            op = InputUtils.lerInteiro("opção: ");
-        }  while(op < 1 || op > 3);
-
-
-        if(op == 2 || op == 3){
-         nome = InputUtils.lerTexto("Insira o nome do produto:(sem valores númericos) ");
-         do{
-            if(!nomeValido(nome)){
-            System.out.println("Insira um nome valido!!");
-            nome = InputUtils.lerTexto("Insira o nome do produto:(sem valores númericos) ");
-            }
-            else
-            break;
-         }while(!nomeValido(nome));
-        }
-         else{
-            nome = InputUtils.lerTexto("Insira o nome do produto: ");
-         }
-        Produto novo = null;
-
-        switch (op){
-        case 1:
-            double tamanhoDoArquivo;
-            do{
-            tamanhoDoArquivo = InputUtils.lerDouble("Insira o tamanho do arquivo: ");
-            
-
-            if(!valorValidoD(tamanhoDoArquivo)){
-                System.out.println("Insira um valor válido! (maior que zero)");
-            }
-            }while(!valorValidoD(tamanhoDoArquivo));
-            String formatoDoArquivo = InputUtils.lerTexto("Insira o formato do arquivo: ");
-            String linkDowload = InputUtils.lerTexto("Insira o link para dowload do arquivo: ");
-            novo = new ProdutoDigital(codigo,nome,precoBase,tamanhoDoArquivo,formatoDoArquivo,linkDowload);
-            break;
-        case 2:
-            double pesoGramas;
-            do{
-                pesoGramas = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
-                if(!valorValidoD(pesoGramas))
-                System.out.println("Insira um valor válido!(maior que zero)");
-            }while(!valorValidoD(pesoGramas));
-
-            int estoque;
-
-            do{
-                estoque = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
-                if(!valorValidoI(estoque))
-                 System.out.println("Insira um valor válido!(maior que zero)");
-
-            }while(!valorValidoI(estoque));
-
-            novo = new ProdutoFisico(codigo,nome,precoBase,pesoGramas,estoque);
-            break;
-        case 3:
-            LocalDate dataDeValidade;
-
-            do { 
-               dataDeValidade = InputUtils.lerData("Insira a data de validade do produto: ");
-
-               if(!verificarData(dataDeValidade))
-               System.out.println("Insira uma data valida!(entre um ano de validade)");
-            } while (!verificarData(dataDeValidade));
-
-
-            double pesoGramas2;
-             do{
-             pesoGramas2 = InputUtils.lerDouble("Insira o peso em gramas do produto: ");
-                if(!valorValidoD(pesoGramas2))
-                System.out.println("Insira um valor válido!(maior que zero)");
-            }while(!valorValidoD(pesoGramas2));
-
-
-
-            int estoque2;
-             do{
-                estoque2 = InputUtils.lerInteiro("Insira a quantidade em estoque do produto: ");
-                if(!valorValidoI(estoque2))
-                 System.out.println("Insira um valor válido!(maior que zero)");
-
-            }while(!valorValidoI(estoque2));
-            break;
+        for(int i =0;i<InputUtils.produtosDigitais.length;i++){
+            produtos[prod]=InputUtils.produtosDigitais[i];
+            prod++;
         }
 
-        produtos[prod] = novo;
-        prod++;
+        for(int i =0;i<InputUtils.produtosFisicos.length;i++){
+            produtos[prod]=InputUtils.produtosFisicos[i];
+            prod++;
+        }
 
-        System.out.println("Produto cadastrado com sucesso!");
+        for(int i =0;i<InputUtils.produtosPereciveis.length;i++){
+            produtos[prod]=InputUtils.produtosPereciveis[i];
+            prod++;
+        }
+
+        System.out.println("Produtos cadastrados com sucesso!");
     }
 
     private void alterarProduto() {
         System.out.println(">>> Alterar Produto <<<");
         String codigo = InputUtils.lerTexto("Insira o codigo do produto que queira alterar: ");
+        while(!produtoExiste(codigo)){
+            System.out.println("Código de Produto não cadastrado, deseja alterar outro produto?");
+            int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
+            if(tentativa == 1)
+                codigo = InputUtils.lerTexto("Insira o codigo do produto: ");
+            else{
+                System.out.println("Nenhum produto não alterado!");
+                return;
+            }
+        }
         for(int i=0; i<prod;i++){
             if(produtos[i].getCodigo().equalsIgnoreCase(codigo)){
                 int atributo;
                 if(produtos[i] instanceof ProdutoDigital){
                     atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Tamanho do Arquivo em MB", 
-                                                "5 - Formato do Arquivo", "6 - Link para Download do Arquivo");
+                                                "5 - Link para Download do Arquivo");
                     switch (atributo){
                     case 1:
                         String novoCodigo = InputUtils.lerTexto("Insira o novo codigo do produto: ");
@@ -218,11 +119,6 @@ public class ConsoleMenu {
                         pd.setTamanhoArquivoEmMB(novoTamanhoDoArquivo);
                         break;
                     case 5:
-                        String novoFormatoDoArquivo = InputUtils.lerTexto("Insira o novo formato do arquivo: ");
-                        ProdutoDigital pd1 = (ProdutoDigital) produtos[i];
-                        pd1.setFormatoArquivo(novoFormatoDoArquivo);
-                        break;
-                    case 6:
                         String novoLinkDowload = InputUtils.lerTexto("Insira o novo link para dowload do arquivo: ");
                         ProdutoDigital pd2 = (ProdutoDigital) produtos[i];
                         pd2.setLinkDownload(novoLinkDowload);
@@ -231,7 +127,7 @@ public class ConsoleMenu {
                 }
                 if(produtos[i] instanceof ProdutoFisico){
                     atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Peso em Gramas", 
-                                                "5 - Estoque", "");
+                                                "5 - Estoque");
                     switch (atributo){
                     case 1:
                         String novoCodigo = InputUtils.lerTexto("Insira o novo codigo do produto: ");
@@ -255,13 +151,10 @@ public class ConsoleMenu {
                         ProdutoFisico pd2 = (ProdutoFisico) produtos[i];
                         pd2.setEstoque(novoEstoque);
                         break;
-                    case 6:
-                        break;
                     }
                 }
                 if(produtos[i] instanceof ProdutoPerecivel){
-                    atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Peso em Gramas", 
-                                                "5 - Estoque", "6 - Data de Validade");
+                    atributo = escolheAtributo("1 - Código", "2 - Nome", "3 - Preço Base", "4 - Estoque", "5 - Data de Validade");
                     switch (atributo){
                     case 1:
                         String novoCodigo = InputUtils.lerTexto("Insira o novo codigo do produto: ");
@@ -276,16 +169,11 @@ public class ConsoleMenu {
                         produtos[i].setPrecoBase(novoPrecoBase);
                         break;
                     case 4:
-                        double novopesoGramas = InputUtils.lerDouble("Insira o novo peso em gramas do produto: ");
-                        ProdutoPerecivel pd = (ProdutoPerecivel) produtos[i];
-                        pd.setPesoGramas(novopesoGramas);
-                        break;
-                    case 5:
                         int novoEstoque = InputUtils.lerInteiro("Insira a nova quantidade em estoque do produto: ");
                         ProdutoPerecivel pd1 = (ProdutoPerecivel) produtos[i];
                         pd1.setEstoque(novoEstoque);
                         break;
-                    case 6:
+                    case 5:
                         LocalDate novaDataDeValidade = InputUtils.lerData("Insira a nova data de validade do produto: ");
                         ProdutoPerecivel pd2 = (ProdutoPerecivel) produtos[i];
                         pd2.setDataValidade(novaDataDeValidade);
@@ -299,46 +187,14 @@ public class ConsoleMenu {
 
     private void cadastrarCliente() {
         System.out.println(">>> Cadastro de Cliente <<<");
-        String identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
-        while(clienteExiste(identificador)){
-            System.out.println("Cliente já inserido, deseja cadastrar outro cliente?");
-            int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
-            if(tentativa == 1)
-                identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
-            else{
-                System.out.println("Cliente não cadastrado!");
-                return;
-            }
-        }
-        String nome = InputUtils.lerTexto("Insira o nome do cliente: ");
-        String endereco = InputUtils.lerTexto("Insira o endereço do cliente: ");
-        String telefone = InputUtils.lerTexto("Insira o telefone do cliente(exemplo->(DDD)NNNNN-NNNN ): ");
-        
-        int op;
-        do {
-            System.out.println("Insira o tipo do cliente: ");
-            System.out.println("1 - Pessoa Física");
-            System.out.println("2 - Pessoa Jurídica");
-            op = InputUtils.lerInteiro("opção: ");
-        }  while(op != 1 && op != 2);
 
-
-        Cliente novo = null;
-        switch (op){
-        case 1:
-            String cpf = InputUtils.lerTexto("Insira o CPF do cliente: ");
-            LocalDate dataNascimento = InputUtils.lerData("Insira a data de nascimento do cliente: ");
-            novo = new PessoaFisica(identificador, nome, endereco, telefone, cpf, dataNascimento);
-            break;
-        case 2:
-            String cnpj = InputUtils.lerTexto("Insira o CNPJ do cliente ou empresa: ");
-            String inscricaoEstadual = InputUtils.lerTexto("Insira a Inscrição Estadual do cliente ou empresa: ");
-            novo = new PessoaJuridica(identificador, nome, endereco, telefone, cnpj, inscricaoEstadual);
-            break;
+       for (int i = 0; i < InputUtils.clientesFisicos.length; i++) {
+            clientes[clien++] = InputUtils.clientesFisicos[i];
         }
 
-        clientes[clien] = novo;
-        clien++;
+        for (int i = 0; i < InputUtils.clientesJuridicos.length; i++) {
+            clientes[clien++] = InputUtils.clientesJuridicos[i];
+        }
 
         System.out.println("Cliente cadastrado com sucesso!");
     }
@@ -346,12 +202,22 @@ public class ConsoleMenu {
     private void alterarCliente() {
         System.out.println(">>> Alterar Cliente <<<");
         String identificador = InputUtils.lerTexto("Insira o identificador do cliente que queira alterar: ");
+        while(!clienteExiste(identificador)){
+            System.out.println("Cliente não cadastrado, deseja alterar outro cliente?");
+            int tentativa = InputUtils.lerInteiro("Digite 1 para SIM e 0 para NÃO: ");
+            if(tentativa == 1)
+                identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
+            else{
+                System.out.println("Nenhum cliente não alterado!");
+                return;
+            }
+        }
         for(int i=0; i<clien;i++){
             if(clientes[i].getIdentificador().equalsIgnoreCase(identificador)){
                 int atributo;
                 if(clientes[i] instanceof PessoaFisica){
                     atributo = escolheAtributo("1 - Identificador", "2 - Nome", "3 - Endereço", "4 - Telefone", 
-                                                "5 - CPF", "6 - Data de Nascimento");
+                                                "5 - CPF");
                     switch (atributo){
                     case 1:
                         String novoIdentificador = InputUtils.lerTexto("Insira o novo identificador do cliente: ");
@@ -374,16 +240,11 @@ public class ConsoleMenu {
                         PessoaFisica ps1 = (PessoaFisica) clientes[i];
                         ps1.setCpf(novoCpf);
                         break;
-                    case 6:
-                        LocalDate novaDataNascimento = InputUtils.lerData("Insira a nova data de nascimento do cliente: ");
-                        PessoaFisica ps2 = (PessoaFisica) clientes[i];
-                        ps2.setDataNascimento(novaDataNascimento);
-                        break;
                     }
                 }
                 if(clientes[i] instanceof PessoaJuridica){
                     atributo = escolheAtributo("1 - Identificador", "2 - Nome", "3 - Endereço", "4 - Telefone", 
-                                                "5 - CNPJ", "6 - Data de Nascimento");
+                                                "5 - CNPJ");
                     switch (atributo){
                     case 1:
                         String novoIdentificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
@@ -405,11 +266,6 @@ public class ConsoleMenu {
                         String novoCnpj = InputUtils.lerTexto("Insira o novo CNPJ do cliente: ");;
                         PessoaJuridica ps1 = (PessoaJuridica) clientes[i];
                         ps1.setCnpj(novoCnpj);
-                        break;
-                    case 6:
-                        String novaInscricaoEstadual = InputUtils.lerTexto("Insira a nova Inscrição Estadual do cliente: ");
-                        PessoaJuridica ps2 = (PessoaJuridica) clientes[i];
-                        ps2.setInscricaoEstadual(novaInscricaoEstadual);
                         break;
                     }
                 }
@@ -498,7 +354,6 @@ public class ConsoleMenu {
             ProdutoDigital pd = (ProdutoDigital) produtos[i];
             System.out.println("- Tipo: Produto Digital");
             System.out.println("- Tamanho do Arquivo: " + pd.getTamanhoArquivoEmMB());
-            System.out.println("- Formato do Arquivo: " + pd.getFormatoArquivo());
             System.out.println("- Link para Download do Arquivo: " + pd.getLinkDownload());
             }
 
@@ -512,7 +367,6 @@ public class ConsoleMenu {
             if(produtos[i] instanceof ProdutoPerecivel){
             ProdutoPerecivel pd2 = (ProdutoPerecivel) produtos[i];
             System.out.println("- Tipo: Produto Perecível");
-            System.out.println("- Peso em Gramas do Produto: " + pd2.getPesoGramas());
             System.out.println("- Estoque: " + pd2.getEstoque());
             System.out.println("- Data de Validade do Lote: " + pd2.getDataValidade());
             }
@@ -536,7 +390,7 @@ public class ConsoleMenu {
         }
     }
     
-    public int escolheAtributo(String string1, String string2, String string3, String string4, String string5, String string6){
+    public int escolheAtributo(String string1, String string2, String string3, String string4, String string5){
         int atributo;
         do {
                     System.out.println("Insira o qual atributo que deseja alterar: ");
@@ -545,7 +399,6 @@ public class ConsoleMenu {
                     System.out.println(string3);
                     System.out.println(string4);
                     System.out.println(string5);
-                    System.out.println(string6);
                     atributo = InputUtils.lerInteiro("opção: ");
                 }  while(atributo < 1 | atributo > 6);
         return atributo;
@@ -566,28 +419,6 @@ public class ConsoleMenu {
         }
     return false;
 }
-private boolean nomeValido(String nome){
-    return nome.matches("[A-Za-zÀ-ÖØ-öø-ÿ\\s]+");
-}
-private boolean codigoValido(String codigo ){
-    return codigo.matches("\\d{6}");//exatamente 6 digitos numericos
-}
-private boolean valorValido(BigDecimal valor){
-    return valor != null && valor.compareTo(BigDecimal.ZERO) > 0;//valor é maior que 0.
-}
- 
-private boolean valorValidoD(double valor){
-    return valor > 0;
-}
-private boolean valorValidoI(int valor){
-    return valor > 0;
-}
-private boolean verificarData(LocalDate data) {
-    LocalDate inicio = LocalDate.of(2025, 7, 23);
-    LocalDate fim = LocalDate.of(2026, 7, 23);
 
-    return (data.isEqual(inicio) || data.isAfter(inicio)) &&
-           (data.isEqual(fim) || data.isBefore(fim));
-}
 }
 

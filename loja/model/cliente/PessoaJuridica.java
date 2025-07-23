@@ -2,13 +2,10 @@ package loja.model.cliente;
 
 public class PessoaJuridica extends Cliente{
     private String cnpj;
-    private String inscricaoEstadual;
     
-    public PessoaJuridica(String identificador, String nome, String endereco, String telefone, String cnpj,
-            String inscricaoEstadual) {
+    public PessoaJuridica(String identificador, String nome, String endereco, String telefone, String cnpj) {
         super(identificador, nome, endereco, telefone);
         this.cnpj = cnpj;
-        this.inscricaoEstadual = inscricaoEstadual;
     }
 
     public String getCnpj() {
@@ -17,19 +14,13 @@ public class PessoaJuridica extends Cliente{
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-    public String getInscricaoEstadual() {
-        return inscricaoEstadual;
-    }
-    public void setInscricaoEstadual(String inscricaoEstadual) {
-        this.inscricaoEstadual = inscricaoEstadual;
-    }
+
 
     @Override
     public void exibirCliente(){
         super.exibirCliente();
         System.out.println("- Tipo: Pessoa Jurídica");
         System.out.println("- CNPJ: " + this.cnpj);
-        System.out.println("- Inscrição Estadual: " + this.inscricaoEstadual);
     }
     
 }
