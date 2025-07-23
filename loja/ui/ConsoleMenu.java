@@ -305,9 +305,9 @@ public class ConsoleMenu {
 
         novo = new Nota(clienteSelecionado);
 
+        System.out.println("<<< Produtos Cadastrados >>>");
         for(int i = 0; i < prod; i++){
-            System.out.println("<<< Produtos Cadastrados >>>");
-            System.out.println(i+1 + produtos[i].getNome());
+            System.out.println(i+1 + "- " + produtos[i].getNome());
         }
 
         int novoProdutoNota;
