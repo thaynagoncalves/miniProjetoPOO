@@ -17,20 +17,22 @@ import loja.ui.InputUtils;
 public class Nota{
     Cliente cliente;
     ItemNota[] itens = new ItemNota[200];
-    private static int numItens = 0;
+    private int numItens = 0;
     long idNota;
     LocalDateTime dataEmissao;
 
     
     public Nota(Cliente cliente) {
         this.cliente = cliente;
+        this.dataEmissao = LocalDateTime.now();
+        setIdNota();
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setIdNota(long idNota) {
+    public void setIdNota() {
         int min = 100000;
         int max = 999999;
         int numero = (int) (Math.random()* (max - min)) + min;
@@ -41,10 +43,6 @@ public class Nota{
         return dataEmissao;
     }
 
-    public void setDataEmissao(LocalDateTime dataEmissao) {
-        LocalDateTime now = LocalDateTime.now();
-        this.dataEmissao = now;
-    }
 
     public void cadastrarItemNota(Produto produto, int quantidade) {
         while(produtoNaNotaExiste(produto)){
@@ -88,20 +86,36 @@ public class Nota{
             PessoaJuridica ps = (PessoaJuridica) this.cliente;
             ps.exibirInformacoes();
         }
-        System.out.println("CÓDIGO     DESCRIÇÃO            QTDE.   VALOR UNITÁRIO   TOTAL");
-        for(int i=0; i<numItens; i++){
-            System.out.println(this.itens[i].getProduto().getCodigo()+"    "+this.itens[i].getProduto().getNome()+
-                                "    "+"    "+this.itens[i].getQuantidade()+"    "+
-                                this.itens[i].getProduto().getPrecoBase()+"    "+this.itens[i].getTotalItem()+"    ");
+        for (int i = 0; i < numItens; i++) {
+        Produto produto = itens[i].getProduto();
+        String codigo = espacarDireita(produto.getCodigo(), 10);
+        String nome = espacarDireita(produto.getNome(), 18);
+        String qtde = espacarEsquerda(String.valueOf(itens[i].getQuantidade()), 5);
+        String preco = espacarEsquerda(String.format("%.2f", produto.getPrecoBase()), 16);
+        String total = espacarEsquerda(String.format("%.2f", itens[i].getTotalItem()), 10);
+
+        System.out.println(codigo + nome + " " + qtde + "   " + preco + "   " + total);
         }
-        System.out.println("QUANTIDADE TOTAL DE                      " + itensTotal());
-        System.out.println("VALOR TOTAL R$                           " + valorTotal());
+
+        System.out.println("\nQUANTIDADE TOTAL DE ITENS: " + itensTotal());
+        System.out.println("VALOR TOTAL DA NOTA: R$ " + String.format("%.2f", valorTotal()));
     }
+
+    
     private boolean produtoNaNotaExiste(Produto produto) {
     for (int i = 0; i < numItens; i++) {
         if (itens[i].getProduto().getCodigo().equalsIgnoreCase(produto.getCodigo())) 
             return true;
         }
     return false;
+    }
+
+    private String espacarDireita(String texto, int tamanho) {
+    return String.format("%-" + tamanho + "s", texto);
+    }
+
+
+    private String espacarEsquerda(String texto, int tamanho) {
+        return String.format("%" + tamanho + "s", texto);
     }
 }

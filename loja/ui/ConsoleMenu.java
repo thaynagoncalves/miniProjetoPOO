@@ -28,6 +28,7 @@ public class ConsoleMenu {
     public void iniciar() {
         int opcao;
         do {
+            System.out.println("\n\n\n\n\n");
             System.out.println("===== SISTEMA DA LOJA =====");
             System.out.println("1. Cadastrar Produto");
             System.out.println("2. Alterar Produto");
@@ -40,6 +41,7 @@ public class ConsoleMenu {
             System.out.println("0. Sair");
 
             opcao = InputUtils.lerInteiro("Escolha uma opção: ");
+            System.out.println("\n\n\n\n\n");
 
             switch (opcao) {
                 case 1: cadastrarProduto();break;
@@ -400,7 +402,7 @@ public class ConsoleMenu {
                     System.out.println(string4);
                     System.out.println(string5);
                     atributo = InputUtils.lerInteiro("opção: ");
-                }  while(atributo < 1 | atributo > 6);
+                }  while(atributo < 1 | atributo > 5);
         return atributo;
     }
 
