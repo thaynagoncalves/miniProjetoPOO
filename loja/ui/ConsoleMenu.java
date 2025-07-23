@@ -208,7 +208,7 @@ public class ConsoleMenu {
             if(tentativa == 1)
                 identificador = InputUtils.lerTexto("Insira o identificador do cliente: ");
             else{
-                System.out.println("Nenhum cliente não alterado!");
+                System.out.println("Nenhum cliente alterado!");
                 return;
             }
         }
@@ -289,8 +289,8 @@ public class ConsoleMenu {
         Cliente clienteSelecionado;
         Nota novo;
         //escolher clientes cadastrados
+        System.out.println("<<< Clientes Cadastrados >>>");
         for(int i = 0; i < clien; i++){
-            System.out.println("<<< Clientes Cadastrados >>>");
             System.out.println(i+1 + "-  " + clientes[i].getNome());
         }
             int ncliente = InputUtils.lerInteiro("Selecione o cliente da nota: ");
@@ -300,14 +300,14 @@ public class ConsoleMenu {
             return;
         }
 
-        clienteSelecionado = clientes[ncliente];
+        clienteSelecionado = clientes[ncliente - 1];
         
 
         novo = new Nota(clienteSelecionado);
 
+        System.out.println("<<< Produtos Cadastrados >>>");
         for(int i = 0; i < prod; i++){
-            System.out.println("<<< Produtos Cadastrados >>>");
-            System.out.println(i+1 + produtos[i].getNome());
+            System.out.println(i+1 + "- " + produtos[i].getNome());
         }
 
         int novoProdutoNota;
@@ -421,4 +421,3 @@ public class ConsoleMenu {
 }
 
 }
-
